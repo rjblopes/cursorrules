@@ -1,0 +1,73 @@
+# AI Scaffolding Base Rules
+
+> Base cursor rules for projects generated with AI Scaffolding
+
+## Project Structure
+
+- **Monorepo Structure**: Use workspace-based monorepo architecture
+- **Primary Packages**:
+  - `packages/hardhat`: Smart contract development
+  - `packages/frontend`: Frontend application
+- **Root Files**: Maintain essential configuration files at root level (package.json, README.md, .gitignore, .npmrc)
+
+## TypeScript Best Practices
+
+- Use arrow functions for callbacks and to maintain lexical `this`
+- Do not use `var` keyword
+- Use template literals for string interpolation
+- Favor async/await over promise chains for asynchronous operations
+- Implement proper error handling with try/catch blocks
+- Enable strict mode in tsconfig.json
+- Define explicit types for function parameters and return values
+- Use interfaces and types to define object shapes
+- Minimize use of `any` type
+
+## Package Management
+{{#if global.isPnpm}}
+- **Preferred Manager**: pnpm
+- **Best Practices**:
+  - Use pnpm-lock.yaml for consistent dependency resolution
+  - Enable strict-peer-dependencies in .npmrc
+  - Configure shared-workspace-lockfile=true for monorepos
+  - Utilize workspace: protocol for internal dependencies
+  - Run pnpm dedupe periodically to optimize node_modules
+  - Use pnpm-workspace.yaml for monorepo package management
+  - Configure .npmrc for organization-specific settings
+  - Enable node-linker=hoisted for better compatibility
+  - Use save-exact=true for reproducible builds
+  - Leverage pnpm's built-in security features
+{{/if}}
+{{#if global.isYarn}}
+- **Preferred Manager**: yarn
+- **Best Practices**:
+  - Use yarn berry (yarn 3+) for improved performance and features
+  - Enable Plug'n'Play (PnP) for efficient dependency management
+  - Commit .yarn folder and .yarnrc.yml for consistent builds
+  - Maintain yarn.lock file in version control
+  - Leverage yarn workspaces for monorepo management
+  - Use yarn constraints for enforcing dependency rules
+  - Configure yarn resolutions to handle dependency conflicts
+  - Enable Zero-Installs when possible for faster CI/CD
+{{/if}}
+{{#if global.isNpm}}
+- **Preferred Manager**: npm
+- **Best Practices**:
+  - Use `package-lock.json` for consistent dependency resolution
+  - Leverage npm workspaces for monorepo management
+  - Run `npm audit` regularly to check for vulnerabilities
+  - Use `npm ci` instead of `npm install` in CI/CD pipelines
+  - Configure .npmrc for organization-specific settings
+  - Use npm scripts for common development tasks
+  - Set save-exact=true in .npmrc for exact versions
+  - Utilize npm's built-in security features
+{{/if}}
+
+## Code Style
+
+- **Formatting**:
+  - 2 spaces for indentation
+  - Single quotes for strings
+  - Don't use semicolons
+  - Maximum line length of 120 characters
+  - Include trailing commas in multiline objects and arrays
+
